@@ -1,0 +1,19 @@
+{
+  "name": "bar-bar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfl5322/bar-bar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bfl5322/bar-bar/issues"
+  },
+  "homepage": "https://github.com/bfl5322/bar-bar#readme"
+}
