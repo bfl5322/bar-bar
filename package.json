@@ -1,19 +1,20 @@
 {
   "name": "bar-bar",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Webcomponent bar-bar following open-wc recommendations",
+  "license": "MIT",
+  "author": "bar-bar",
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "analyze": "cem analyze --litelement",
+    "start": "web-dev-server"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bfl5322/bar-bar.git"
+  "dependencies": {
+    "lit": "^2.0.2"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bfl5322/bar-bar/issues"
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.4.17",
+    "@web/dev-server": "^0.1.34"
   },
-  "homepage": "https://github.com/bfl5322/bar-bar#readme"
+  "customElements": "custom-elements.json"
 }
