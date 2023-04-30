@@ -1,0 +1,17 @@
+[
+    {
+      "id": "bar1",
+      "duration": 10,
+      "start": 0
+    },
+    {
+      "id": "bar2",
+      "duration": 15,
+      "start": 0
+    },
+    {
+      "id": "bar3",
+      "duration": 20,
+      "start": 0
+    }
+  ]
