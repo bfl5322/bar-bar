@@ -1,17 +1,16 @@
-[
+{
+  "bars": [
     {
-      "id": "bar1",
+      "duration": 5,
+      "intervalDuration": 50
+    },
+    {
       "duration": 10,
-      "start": 0
+      "intervalDuration": 100
     },
     {
-      "id": "bar2",
-      "duration": 15,
-      "start": 0
-    },
-    {
-      "id": "bar3",
       "duration": 20,
-      "start": 0
+      "intervalDuration": 200
     }
   ]
+}
