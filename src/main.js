@@ -1,20 +1,15 @@
-import './src/bar-bar.js';
+import { LitElement, html } from 'lit';
+import './bar-bar.js';
+import { progressBarData } from './backend.js';
 
-async function loadConfig() {
-  const response = await fetch('./assets/data.json');
-  const config = await response.json();
-
-  return config;
+class MainApp extends LitElement {
+  render() {
+    return html`
+      ${progressBarData.map(
+        (item) => html`<bar-bar duration="${item.duration}"></bar-bar>`
+      )}
+    `;
+  }
 }
 
-loadConfig().then((config) => {
-  const container = document.getElementById('progress-bars-container');
-  config.bars.forEach((bar) => {
-    const progressBarContainer = document.createElement('div');
-    const progressBar = document.createElement('bar-bar');
-    progressBar.duration = bar.duration;
-    progressBar.intervalDuration = bar.intervalDuration;
-    progressBarContainer.appendChild(progressBar);
-    container.appendChild(progressBarContainer);
-  });
-});
+customElements.define('main-app', MainApp);

@@ -17,13 +17,15 @@
     }
   </style>
   <title>bar-bar</title>
-  <script type="module" src="./src/bar-bar.js"></script>
-  <script type="module" src="./src/main.js"></script>
-  
+  <script type="module">
+    import "./src/bar-bar.js";
+    import "./src/main.js";
+  </script>
 </head>
 <body>
-
-<div id="progress-bars-container"></div>
-
+  <bar-bar duration="3.79" progressPercentage="10"></bar-bar>
+  <bar-bar duration="31.25" progressPercentage="60"></bar-bar>
+  <bar-bar duration="42.61" progressPercentage="80"></bar-bar>
+  <div id="progress-bars-container"></div>
 </body>
 </html>

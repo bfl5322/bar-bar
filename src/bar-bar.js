@@ -4,11 +4,11 @@ import { progressBarData } from './backend.js';
 class BarBar extends LitElement {
   static get properties() {
     return {
-      duration: { type: Number,
-      reflect:true},
-      intervalDuration: { type: Number, reflect:true},
-      progress: { type: Number, reflect:true},
-      time: { type: Number , reflect:true},
+      duration: { type: Number },
+      intervalDuration: { type: Number },
+      progressPercentage: { type: Number },
+      progress: { type: Number },
+      time: { type: Number },
     };
   }
 
@@ -41,25 +41,33 @@ class BarBar extends LitElement {
     super();
     this.duration = 10;
     this.intervalDuration = 100;
+    this.progressPercentage = 0;
     this.progress = 0;
     this.time = 0;
   }
-  firstUpdated() {
-    this.startAnimation();
+  updated(changedProperties) {
+    if (changedProperties.has('duration') || changedProperties.has('progressPercentage')) {
+      if (!this.duration) {
+        this.duration = 10;
+      }
+      if (!this.progressPercentage) {
+        this.progressPercentage = 0;
+      }
+      this.startAnimation();
+    }
   }
-
   startAnimation() {
     const progressBarInner = this.shadowRoot.querySelector('.progress-bar-inner');
     const timeIncrement = this.intervalDuration / 1000;
     const interval = setInterval(() => {
       const progress = (this.time / this.duration) * 100;
-      progressBarInner.style.width = progress + '%';
+      progressBarInner.style.width = (progress * this.progressPercentage / 100) + '%';
       this.time = parseFloat((this.time + timeIncrement).toFixed(1));
-
+  
       if (this.time >= this.duration) {
         clearInterval(interval);
       }
-
+  
       this.requestUpdate();
     }, this.intervalDuration);
   }
