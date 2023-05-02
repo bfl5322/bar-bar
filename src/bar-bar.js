@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import progressBarData from '../assets/data.json';
 
 class BarBar extends LitElement {
   static get properties() {

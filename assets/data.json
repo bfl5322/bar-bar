@@ -1,16 +1,20 @@
-{
-  "bars": [
-    {
-      "duration": 5,
-      "intervalDuration": 50
-    },
-    {
-      "duration": 10,
-      "intervalDuration": 100
-    },
-    {
-      "duration": 20,
-      "intervalDuration": 200
-    }
-  ]
-}
+[
+  {
+    "duration": 0.3,
+    "intervalDuration": 100,
+    "progressPercentage": 30,
+    "name": "test"
+  },
+  {
+    "duration": 5,
+    "intervalDuration": 100,
+    "progressPercentage": 60,
+    "name": "Rspack"
+  },
+  {
+    "duration": 20,
+    "intervalDuration": 100,
+    "progressPercentage": 75,
+    "name": "MAMA"
+  }
+]
