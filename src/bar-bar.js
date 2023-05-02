@@ -1,14 +1,15 @@
 import { LitElement, html, css } from 'lit';
-import { progressBarData } from './backend.js';
+import progressBarData from '../assets/data.json';
 
 class BarBar extends LitElement {
   static get properties() {
     return {
-      duration: { type: Number },
-      intervalDuration: { type: Number },
-      progressPercentage: { type: Number },
-      progress: { type: Number },
-      time: { type: Number },
+      duration: { type: Number, reflect: true},
+      intervalDuration: { type: Number, reflect: true },
+      progressPercentage: { type: Number, reflect: true },
+      progress: { type: Number,  reflect: true},
+      time: { type: Number, reflect: true },
+      name: { type: String, reflect: true },
     };
   }
 
@@ -41,9 +42,10 @@ class BarBar extends LitElement {
     super();
     this.duration = 10;
     this.intervalDuration = 100;
-    this.progressPercentage = 0;
+    this.progressPercentage = 100;
     this.progress = 0;
     this.time = 0;
+    this.name = '';
   }
   updated(changedProperties) {
     if (changedProperties.has('duration') || changedProperties.has('progressPercentage')) {
@@ -51,11 +53,13 @@ class BarBar extends LitElement {
         this.duration = 10;
       }
       if (!this.progressPercentage) {
-        this.progressPercentage = 0;
+        this.progressPercentage = 100;
       }
       this.startAnimation();
     }
   }
+
+  
   startAnimation() {
     const progressBarInner = this.shadowRoot.querySelector('.progress-bar-inner');
     const timeIncrement = this.intervalDuration / 1000;
@@ -75,6 +79,7 @@ class BarBar extends LitElement {
   render() {
     return html`
       <div class="progress-bar">
+        <h1>${this.name}</h1>
         <div class="progress-bar-inner"></div>
       </div>
       <div class="timer">${this.time}s</div>
