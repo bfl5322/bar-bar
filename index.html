@@ -17,33 +17,13 @@
     }
   </style>
   <title>bar-bar</title>
-</head>
-
-<body>
+  <script type="module" src="./src/bar-bar.js"></script>
+  <script type="module" src="./src/main.js"></script>
   
-  <bar-bar></bar-bar>
-  <backend></backend>
+</head>
+<body>
 
-  <script type="module" src="./src/bar-bar.js">
-      async function loadConfig() {
-      const configElement = document.getElementById('config');
-      const configURL = configElement.src;
-      const response = await fetch(configURL);
-      const config = await response.json();
+<div id="progress-bars-container"></div>
 
-      return config;
-    }
-
-    loadConfig().then((config) => {
-      const container = document.getElementById('progress-bars-container');
-      config.bars.forEach((bar) => {
-        const progressBar = document.createElement('bar-bar');
-        progressBar.duration = bar.duration;
-        progressBar.intervalDuration = bar.intervalDuration;
-        container.appendChild(progressBar);
-      });
-    });
-  </script>
 </body>
-
 </html>

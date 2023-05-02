@@ -1,20 +1,20 @@
-// bar-bar.js
 import { LitElement, html, css } from 'lit';
 import { progressBarData } from './backend.js';
 
 class BarBar extends LitElement {
   static get properties() {
     return {
-      duration: { type: Number },
-      intervalDuration: { type: Number },
-      progress: { type: Number },
-      time: { type: Number },
+      duration: { type: Number,
+      reflect:true},
+      intervalDuration: { type: Number, reflect:true},
+      progress: { type: Number, reflect:true},
+      time: { type: Number , reflect:true},
     };
   }
 
   static get styles() {
     return css`
-:host {
+    :host {
       display: block;
       margin-bottom: 20px;
     }
@@ -25,7 +25,7 @@ class BarBar extends LitElement {
       width: 100%;
     }
     .progress-bar-inner {
-      background-color: #4caf50;
+      background-image: linear-gradient(red, yellow);
       border-radius: 5px;
       height: 100%;
       width: 0;

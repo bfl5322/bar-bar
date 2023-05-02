@@ -1,11 +1,20 @@
-// main.js
-import { progressBarData } from './backend.js';
+import './src/bar-bar.js';
 
-const container = document.getElementById('progress-container');
+async function loadConfig() {
+  const response = await fetch('./assets/data.json');
+  const config = await response.json();
 
-progressBarData.forEach((item) => {
-  const bar = document.createElement('bar-bar');
-  bar.time = item.time;
-  bar.start = item.start;
-  container.appendChild(bar);
+  return config;
+}
+
+loadConfig().then((config) => {
+  const container = document.getElementById('progress-bars-container');
+  config.bars.forEach((bar) => {
+    const progressBarContainer = document.createElement('div');
+    const progressBar = document.createElement('bar-bar');
+    progressBar.duration = bar.duration;
+    progressBar.intervalDuration = bar.intervalDuration;
+    progressBarContainer.appendChild(progressBar);
+    container.appendChild(progressBarContainer);
+  });
 });
