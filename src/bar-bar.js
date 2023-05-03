@@ -9,6 +9,7 @@ class BarBar extends LitElement {
       progress: { type: Number,  reflect: true},
       time: { type: Number, reflect: true },
       name: { type: String, reflect: true },
+      hasStarted: { type: Boolean },
     };
   }
 
@@ -34,6 +35,10 @@ class BarBar extends LitElement {
       margin-top: 5px;
       text-align: center;
     }
+    .name {
+        margin-top: 5px;
+        text-align: center;
+      }
     `;
   }
 
@@ -45,7 +50,13 @@ class BarBar extends LitElement {
     this.progress = 0;
     this.time = 0;
     this.name = '';
+    this.hasStarted = false;
   }
+
+  firstUpdated() {
+    window.addEventListener('scroll', () => this.handleScroll());
+  }
+
   updated(changedProperties) {
     if (changedProperties.has('duration') || changedProperties.has('progressPercentage')) {
       if (!this.duration) {
@@ -54,10 +65,27 @@ class BarBar extends LitElement {
       if (!this.progressPercentage) {
         this.progressPercentage = 100;
       }
-      this.startAnimation();
     }
   }
 
+  handleScroll() {
+    if (this.hasStarted) {
+      return;
+    }
+
+    const rect = this.getBounditingClientRect();
+    const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+
+    console.log('rect.top:', rect.top);
+  console.log('rect.bottom:', rect.bottom);
+  console.log('windowHeight:', windowHeight);
+
+    if (rect.top <= windowHeight && rect.bottom >= 0) {
+      console.log('Starting animation');
+      this.hasStarted = true;
+      this.startAnimation();
+    }
+  }
   
   startAnimation() {
     const progressBarInner = this.shadowRoot.querySelector('.progress-bar-inner');
@@ -78,9 +106,10 @@ class BarBar extends LitElement {
   render() {
     return html`
       <div class="progress-bar">
-        <h1>${this.name}</h1>
+        
         <div class="progress-bar-inner"></div>
       </div>
+      <div class ="name">${this.name}</div>
       <div class="timer">${this.time}s</div>
     `;
   }

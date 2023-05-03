@@ -8,6 +8,7 @@ class MainApp extends LitElement {
     };
   }
 
+
   constructor() {
     super();
     this.progressBarData = [];
@@ -30,16 +31,19 @@ class MainApp extends LitElement {
 
   render() {
     return html`
+    <div class="progress-bars">
       ${this.progressBarData.map(
         (item) => html`
           <bar-bar
             duration="${item.duration}"
             intervalDuration="${item.intervalDuration}"
             progressPercentage="${item.progressPercentage}"
-            time="${item.time}"
+            name="${item.name}"
+            
           ></bar-bar>
         `
       )}
+      </div>
     `;
   }
 }
