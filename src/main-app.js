@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, css} from 'lit';
 import './bar-bar.js';
 
 class MainApp extends LitElement {
@@ -8,11 +8,25 @@ class MainApp extends LitElement {
     };
   }
 
+  static get styles() {
+    return css`
+      .spacer {
+        height: 100vh;
+      }
+    `;
+    }
 
   constructor() {
     super();
     this.progressBarData = [];
     this.updateRoster();
+    window.addEventListener('scroll', () => this.handleScroll());
+  }
+
+  handleScroll() {
+    this.shadowRoot.querySelectorAll('bar-bar').forEach((bar) => {
+      bar.handleScroll();
+    });
   }
 
   updateRoster() {
@@ -31,20 +45,22 @@ class MainApp extends LitElement {
 
   render() {
     return html`
-    <div class="progress-bars">
-      ${this.progressBarData.map(
-        (item) => html`
-          <bar-bar
-            duration="${item.duration}"
-            intervalDuration="${item.intervalDuration}"
-            progressPercentage="${item.progressPercentage}"
-            name="${item.name}"
-            
-          ></bar-bar>
-        `
-      )}
-      </div>
-    `;
+  <div style="height: 100vh; background-color: lightgrey;">
+    <h1 style="text-align: center; color:green">Scroll down to see progress bars</h1>
+  </div>
+  <div class="progress-bars">
+    ${this.progressBarData.map(
+      (item) => html`
+        <bar-bar
+          duration="${item.duration}"
+          intervalDuration="${item.intervalDuration}"
+          progressPercentage="${item.progressPercentage}"
+          name="${item.name}"
+        ></bar-bar>
+      `
+    )}
+  </div>
+`;
   }
 }
 

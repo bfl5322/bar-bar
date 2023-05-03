@@ -1,20 +1,20 @@
 [
   {
-    "duration": 0.3,
-    "intervalDuration": 100,
-    "progressPercentage": 30,
+    "duration": 5,
+    "intervalDuration": 16,
+    "progressPercentage": 20,
     "name": "Test"
   },
   {
-    "duration": 5,
-    "intervalDuration": 100,
+    "duration": 15,
+    "intervalDuration": 16,
     "progressPercentage": 60,
     "name": "Rspack"
   },
   {
     "duration": 20,
-    "intervalDuration": 100,
-    "progressPercentage": 75,
+    "intervalDuration": 16,
+    "progressPercentage": 80,
     "name": "MAMA"
   }
 ]

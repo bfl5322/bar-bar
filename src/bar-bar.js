@@ -30,6 +30,7 @@ class BarBar extends LitElement {
       border-radius: 5px;
       height: 100%;
       width: 0;
+      transition: width linear;
     }
     .timer {
       margin-top: 5px;
@@ -45,7 +46,7 @@ class BarBar extends LitElement {
   constructor() {
     super();
     this.duration = 10;
-    this.intervalDuration = 100;
+    this.intervalDuration = 16;
     this.progressPercentage = 100;
     this.progress = 0;
     this.time = 0;
@@ -53,9 +54,7 @@ class BarBar extends LitElement {
     this.hasStarted = false;
   }
 
-  firstUpdated() {
-    window.addEventListener('scroll', () => this.handleScroll());
-  }
+
 
   updated(changedProperties) {
     if (changedProperties.has('duration') || changedProperties.has('progressPercentage')) {
@@ -68,39 +67,39 @@ class BarBar extends LitElement {
     }
   }
 
-  handleScroll() {
-    if (this.hasStarted) {
-      return;
-    }
-
-    const rect = this.getBounditingClientRect();
-    const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
-
-    console.log('rect.top:', rect.top);
-  console.log('rect.bottom:', rect.bottom);
-  console.log('windowHeight:', windowHeight);
-
-    if (rect.top <= windowHeight && rect.bottom >= 0) {
-      console.log('Starting animation');
-      this.hasStarted = true;
-      this.startAnimation();
-    }
+  firstUpdated() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !this.hasStarted) {
+          this.hasStarted = true;
+          this.startAnimation();
+        }
+      });
+    });
+  
+    observer.observe(this);
   }
+  
   
   startAnimation() {
     const progressBarInner = this.shadowRoot.querySelector('.progress-bar-inner');
-    const timeIncrement = this.intervalDuration / 1000;
-    const interval = setInterval(() => {
-      const progress = (this.time / this.duration) * 100;
-      progressBarInner.style.width = (progress * this.progressPercentage / 100) + '%';
-      this.time = parseFloat((this.time + timeIncrement).toFixed(1));
   
-      if (this.time >= this.duration) {
-        clearInterval(interval);
+    progressBarInner.style.transitionDuration = `${this.duration}s`;
+    progressBarInner.style.width = `${this.progressPercentage}%`;
+  
+    const updateTime = () => {
+      this.time = parseFloat((this.time + 0.1).toFixed(1));
+  
+      if (this.time < this.duration) {
+        setTimeout(updateTime, 100);
+      } else {
+        this.time = this.duration;
       }
   
       this.requestUpdate();
-    }, this.intervalDuration);
+    };
+  
+    updateTime();
   }
 
   render() {
