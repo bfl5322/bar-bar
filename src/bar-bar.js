@@ -23,7 +23,8 @@ class BarBar extends LitElement {
       background-color: #ddd;
       border-radius: 5px;
       height: 30px;
-      width: 100%;
+      width: 75%;
+      margin: 0 auto;
     }
     .progress-bar-inner {
       background-image: linear-gradient(red, yellow);
@@ -37,8 +38,12 @@ class BarBar extends LitElement {
       text-align: center;
     }
     .name {
-        margin-top: 5px;
-        text-align: center;
+     top: -10%;
+    }
+    @media (max-width: 767px) {
+        .progress-bar {
+          width: 100%;
+        }
       }
     `;
   }
@@ -56,59 +61,57 @@ class BarBar extends LitElement {
 
 
 
-  updated(changedProperties) {
-    if (changedProperties.has('duration') || changedProperties.has('progressPercentage')) {
-      if (!this.duration) {
-        this.duration = 10;
-      }
-      if (!this.progressPercentage) {
-        this.progressPercentage = 100;
-      }
-    }
-  }
-
   firstUpdated() {
+    const progressBarInner = this.shadowRoot.querySelector('.progress-bar-inner');
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !this.hasStarted) {
           this.hasStarted = true;
+
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (prefersReducedMotion) {
+            setTimeout(() => {
+              progressBarInner.style.width = '50%';
+              setTimeout(() => {
+                progressBarInner.style.width = '100%';
+              }, this.duration * 1000 / 2);
+            }, 10);
+          } else {
+            progressBarInner.style.transitionDuration = `${this.duration}s`;
+            progressBarInner.style.width = `${this.progressPercentage}%`;
+          }
           this.startAnimation();
         }
       });
     });
-  
+
     observer.observe(this);
   }
   
   
   startAnimation() {
-    const progressBarInner = this.shadowRoot.querySelector('.progress-bar-inner');
-  
-    progressBarInner.style.transitionDuration = `${this.duration}s`;
-    progressBarInner.style.width = `${this.progressPercentage}%`;
-  
     const updateTime = () => {
       this.time = parseFloat((this.time + 0.1).toFixed(1));
-  
+
       if (this.time < this.duration) {
         setTimeout(updateTime, 100);
       } else {
         this.time = this.duration;
       }
-  
+
       this.requestUpdate();
     };
-  
+
     updateTime();
   }
 
   render() {
     return html`
-      <div class="progress-bar">
-        
+      <div class="progress-bar" aria-label="A bar graph animation showing how long it takes for ${this.name} to be installed">
         <div class="progress-bar-inner"></div>
       </div>
-      <div class ="name">${this.name}</div>
+      <div class="name">${this.name}</div>
       <div class="timer">${this.time}s</div>
     `;
   }

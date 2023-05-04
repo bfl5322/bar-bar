@@ -13,6 +13,8 @@ class MainApp extends LitElement {
       .spacer {
         height: 100vh;
       }
+      
+}
     `;
     }
 
@@ -56,6 +58,7 @@ class MainApp extends LitElement {
           intervalDuration="${item.intervalDuration}"
           progressPercentage="${item.progressPercentage}"
           name="${item.name}"
+          aria-label="A progress bar showing ${item.name} installation time"
         ></bar-bar>
       `
     )}
