@@ -1,4 +1,5 @@
-import { LitElement, html, css} from 'lit';
+import { LitElement, html, css } from '../node_modules/lit/index.js';
+
 import './bar-bar.js';
 
 class MainApp extends LitElement {
@@ -13,8 +14,6 @@ class MainApp extends LitElement {
       .spacer {
         height: 100vh;
       }
-      
-}
     `;
     }
 
