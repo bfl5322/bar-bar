@@ -1,4 +1,5 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from '../node_modules/lit/index.js';
+
 
 class BarBar extends LitElement {
   static get properties() {
